@@ -9,7 +9,7 @@
 			<Target title="Debug">
 				<Option output="bin/Debug/SFML 501" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
@@ -18,7 +18,7 @@
 			<Target title="Release">
 				<Option output="bin/Release/SFML 501" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
@@ -40,7 +40,10 @@
 			<Add directory="../../../../Libraries/SFML_TDM/lib" />
 			<Add directory="../../../../Libraries/SFML_TDM/lib/static-std" />
 		</Linker>
+		<Unit filename="gfx/board.bmp" />
+		<Unit filename="globalmanager.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="statestack.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
