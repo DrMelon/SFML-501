@@ -5,6 +5,7 @@
 #include <stack>
 #include <vector>
 #include "statestack.h"
+#include "globalmanager.h"
 
 // State Function Prototypes
 void Menu();
@@ -18,18 +19,21 @@ void Menu_Draw(std::vector<sf::Sprite> drawList);
 
 // The draw vectors contain everything that needs to be drawn per state.
 std::vector<sf::Sprite> drawList_Menu;
-sf::RenderWindow* window;
+
 
 int main()
 {
     // Set up SFML Window
-    window = new sf::RenderWindow(sf::VideoMode(1024,512), "501 Darts Game!");
-    window->setFramerateLimit(60); // 60 FPS
+    g_GlobalManager->window = new sf::RenderWindow(sf::VideoMode(1024,512), "501 Darts Game!");
+    g_GlobalManager->window->setFramerateLimit(60); // 60 FPS
 
     // Push initial states onto stack.
     State st;
     st.StatePointer = Menu;
     g_StateStack->states.push(st);
+
+    // Set up Main Menu
+
 
     // Load Dartboard Image -- DEBUG
     sf::Texture DartboardTexture;
@@ -41,12 +45,13 @@ int main()
     drawList_Menu.push_back(background);
 
     // Main Loop -- While the stack isn't empty and we haven't closed the window...
-    while (window->isOpen())
+    while (g_GlobalManager->window->isOpen())
     {
         // Close the window if the stack is empty.
         if(g_StateStack->states.empty())
         {
-            window->close();
+            g_GlobalManager->window->close();
+            continue;
         }
 
         // Run the current state.
@@ -70,7 +75,7 @@ void Menu_Input()
 {
     // Handle Input on Main Menu
     sf::Event event;
-    while (window->pollEvent(event))
+    while (g_GlobalManager->window->pollEvent(event))
     {
         if(event.type == sf::Event::Closed)
         {
@@ -86,11 +91,11 @@ void Menu_Input()
 void Menu_Draw(std::vector<sf::Sprite> drawList)
 {
         // Clear Draw Buffer
-        window->clear();
+        g_GlobalManager->window->clear();
         // -- Any Drawable Items go Here
         for(int i = 0; i < drawList.size(); i++)
         {
-            window->draw(drawList[i]);
+            g_GlobalManager->window->draw(drawList[i]);
         }
-        window->display();
+        g_GlobalManager->window->display();
 }
